@@ -1,6 +1,6 @@
 ### ToDo
 
 - [x] Install project
-- [ ] Install Easy Admin
-- [ ] Questions
-- [ ] Answers
+- [x] Install Easy Admin
+- [x] Questions CRUD
+- [ ] Answers CRUD
