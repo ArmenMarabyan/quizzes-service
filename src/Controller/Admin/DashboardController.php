@@ -3,7 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Controller\Admin\Question\QuestionCrudController;
+use App\Controller\Admin\Quiz\QuizCrudController;
 use App\Entity\Question;
+use App\Entity\Quiz;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -17,7 +19,7 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
-        $url = $routeBuilder->setController(QuestionCrudController::class)->generateUrl();
+        $url = $routeBuilder->setController(QuizCrudController::class)->generateUrl();
         return $this->redirect($url);
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
@@ -46,6 +48,7 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
 //        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToCrud('Quiz', 'fas fa-list', Quiz::class);
         yield MenuItem::linkToCrud('Question', 'fas fa-list', Question::class);
 
     }
