@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 
 class QuestionCrudController extends AbstractCrudController
 {
@@ -24,6 +25,7 @@ class QuestionCrudController extends AbstractCrudController
     {
 
 
+//        yield IdField::new('id');
         yield AssociationField::new('quiz');
         yield TextField::new('title');
         yield TextEditorField::new('summary');
