@@ -20,6 +20,7 @@
                 </div>
 
                 <div class="questions">
+                    {{ form(form) }}
                     {% for k,question in quiz.getQuestions() %}
                     <div class="card text-dark bg-light mb-3" style="">
                         <div class="card-header">Question {{ k+1 }}</div>
