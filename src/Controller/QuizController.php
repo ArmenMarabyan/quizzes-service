@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Quiz;
+use App\Repository\AnswerRepository;
 use App\Repository\QuizRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class QuizController extends AbstractController
 {
-    public function __construct(private QuizRepository $quizRepository)
+    public function __construct(private QuizRepository $quizRepository, private AnswerRepository $answerRepository)
     {
     }
 
@@ -39,12 +40,7 @@ class QuizController extends AbstractController
         foreach ($quiz->getQuestions() as $question) {
             $form = $form->add('answer' . $question->getId(),ChoiceType::class, options: [
                 'label' => $question->getTitle(),
-                'choices' => [
-                    'answer1' => '1',
-                    'answer2' => '2',
-                    'answer3' => '3',
-                    'answer4' => '4'
-                ],
+                'choices' => array_flip($question->getAnswersForSelect()),
                 'multiple'=>false,'expanded'=>true
                 ]);
         }
@@ -56,7 +52,12 @@ class QuizController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            dd($data);
+
+            $answerIds = array_values($data);
+            $answers = $this->answerRepository->findBy(['id' => $answerIds]);
+
+            dd($answers);
+
         }
 
         return $this->render('quiz/show.html.twig', [
