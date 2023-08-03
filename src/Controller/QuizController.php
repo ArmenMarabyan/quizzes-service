@@ -54,15 +54,31 @@ class QuizController extends AbstractController
             $data = $form->getData();
 
             $answerIds = array_values($data);
-            $answers = $this->answerRepository->findBy(['id' => $answerIds]);
 
-            dd($answers);
 
+            $session = $request->getSession();
+            $session->set('answeredIds', $answerIds);
+
+            return $this->redirectToRoute('app_quiz_result', ['quiz' => $quiz->getId()]);
         }
 
         return $this->render('quiz/show.html.twig', [
             'quiz' => $quiz,
             'form' => $form
+        ]);
+    }
+
+    #[Route('/quizzes/{quiz<\d+>}/result', name: 'app_quiz_result')]
+    public function result(Request $request, $quiz): Response
+    {
+        $quiz = $this->quizRepository->find($quiz);
+        $session = $request->getSession();
+        $answerIds = $session->get('answeredIds', []);
+//        $answers = $this->answerRepository->findBy(['id' => $answerIds]);
+
+        return $this->render('quiz/result.html.twig', [
+            'quiz' => $quiz,
+            'answeredIds' => $answerIds
         ]);
     }
 }
