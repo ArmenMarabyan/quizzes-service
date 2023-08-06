@@ -33,5 +33,10 @@ class QuizCrudController extends AbstractCrudController
         } else {
             yield $createdAt;
         }
+
+        yield DateTimeField::new('updatedAt')->setFormTypeOptions([
+            'years' => range(date('Y'), date('Y') + 5),
+            'widget' => 'single_text',
+        ]);
     }
 }
