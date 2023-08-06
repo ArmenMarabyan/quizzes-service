@@ -15,37 +15,59 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{ quiz.summary ?? 'desc' }}</p>
-{#                        <a href="#" class="btn btn-primary">Пройти</a>#}
+                        {% if quiz.duration > 0 %}
+                        <div id="timer" data-duration="{{ quiz.duration }}"></div>
+                        {% endif %}
                     </div>
                 </div>
 
                 <div class="questions">
                     {{ form(form) }}
                     {% for k,question in quiz.getQuestions() %}
-                    <div class="card text-dark bg-light mb-3" style="">
-                        <div class="card-header">Question {{ k+1 }}</div>
-                        <div class="card-body">
-                            <h5 class="card-title">{{ question.title }}</h5>
-                            <p class="card-text">{{ question.summary }}</p>
-                            <div class="answers">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                    <label class="form-check-label" for="flexRadioDefault1">
-                                        Default radio
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        Default checked radio
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+{#                    <div class="card text-dark bg-light mb-3" style="">#}
+{#                        <div class="card-header">Question {{ k+1 }}</div>#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">{{ question.title }}</h5>#}
+{#                            <p class="card-text">{{ question.summary }}</p>#}
+{#                            <div class="answers">#}
+{#                                <div class="form-check">#}
+{#                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">#}
+{#                                    <label class="form-check-label" for="flexRadioDefault1">#}
+{#                                        Default radio#}
+{#                                    </label>#}
+{#                                </div>#}
+{#                                <div class="form-check">#}
+{#                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>#}
+{#                                    <label class="form-check-label" for="flexRadioDefault2">#}
+{#                                        Default checked radio#}
+{#                                    </label>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
                     {% endfor %}
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        window.onload = function() {
+            var minute = $('#timer').data('duration')-1;
+            var sec = 59;
+            setInterval(function() {
+                document.getElementById("timer").innerHTML = minute + ":" + sec;
+                sec--;
+
+                if (sec == 00) {
+                    minute--;
+                    sec = 60;
+
+                    if (minute == 0) {
+                        minute = 5;
+                    }
+                }
+            }, 1000);
+        }
+    </script>
 {% endblock %}

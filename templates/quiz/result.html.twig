@@ -28,7 +28,7 @@
                             <p class="card-text">{{ question.summary }}</p>
                             <div class="answers">
                                 {% for answer in question.getAnswers() %}
-                                    {% if answer.isIsTrue() and answer.getId() in answeredIds %}
+                                    {% if answer.isIsTrue() %}
                                         <div class="alert alert-success" role="alert">
                                             {{ answer.title }}
                                         </div>

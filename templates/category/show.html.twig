@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}Category quizzes{% endblock %}
 
 {% block body %}
+    <h1>{{ category.name }}</h1>
     <div class="quizzes mt-5">
         <div class="row">
             <div class="col-lg-8 m-auto">
@@ -13,7 +14,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ quiz.title }}</h5>
                                 <p class="card-text">{{ quiz.summary ?? 'desc' }}</p>
-                                <a href="{{ path('app_quiz', {'quiz':quiz.id}) }}" class="btn btn-primary">Пройти</a>
+                                <a href="#" class="btn btn-primary">Пройти</a>
                             </div>
                         </div>
                     {% endfor %}

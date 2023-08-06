@@ -6,6 +6,7 @@ use App\Entity\Quiz;
 use App\Repository\AnswerRepository;
 use App\Repository\QuizRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -41,7 +42,7 @@ class QuizController extends AbstractController
             $form = $form->add('answer' . $question->getId(),ChoiceType::class, options: [
                 'label' => $question->getTitle(),
                 'choices' => array_flip($question->getAnswersForSelect()),
-                'multiple'=>false,'expanded'=>true
+                'multiple'=>true,'expanded'=>true
                 ]);
         }
 
@@ -53,8 +54,14 @@ class QuizController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            $answerIds = array_values($data);
+//            $answerIds = array_values($data);
+            $answerIds = [];
+            foreach ($data as $answerKey => $answers) {
+                foreach ($answers as $answer) {
+                    $answerIds[] = $answer;
+                }
 
+            }
 
             $session = $request->getSession();
             $session->set('answeredIds', $answerIds);

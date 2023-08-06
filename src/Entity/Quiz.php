@@ -30,9 +30,16 @@ class Quiz
     #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Question::class)]
     private Collection $questions;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $duration = null;
+
+    #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'quizzes')]
+    private Collection $category;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,5 +128,41 @@ class Quiz
     public function __toString(): string
     {
         return $this->title;
+    }
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?string $duration): static
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Category>
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(Category $category): static
+    {
+        if (!$this->category->contains($category)) {
+            $this->category->add($category);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): static
+    {
+        $this->category->removeElement($category);
+
+        return $this;
     }
 }

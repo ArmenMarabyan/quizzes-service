@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <div class="categories mt-5">
+        <div class="row">
+            <div class="col-lg-8 m-auto">
+                <div class="d-flex">
+                    <ul class="nav-link">
+                        {% for category in categories %}
+                            <li><a class="dropdown-item" href="{{ path('app_category', {'category':category.id}) }}">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

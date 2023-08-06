@@ -3,7 +3,12 @@
 namespace App\Controller\Admin\Quiz;
 
 use App\Entity\Quiz;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class QuizCrudController extends AbstractCrudController
 {
@@ -12,14 +17,21 @@ class QuizCrudController extends AbstractCrudController
         return Quiz::class;
     }
 
-    /*
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        yield AssociationField::new('category');
+        yield TextField::new('title');
+        yield TextField::new('slug');
+        yield TextField::new('duration');
+
+        $createdAt = DateTimeField::new('createdAt')->setFormTypeOptions([
+            'years' => range(date('Y'), date('Y') + 5),
+            'widget' => 'single_text',
+        ]);
+        if (Crud::PAGE_EDIT === $pageName) {
+            yield $createdAt->setFormTypeOption('disabled', true);
+        } else {
+            yield $createdAt;
+        }
     }
-    */
 }
