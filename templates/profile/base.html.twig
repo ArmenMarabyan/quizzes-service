@@ -150,9 +150,9 @@
             <div class="position-sticky pt-3 sidebar-sticky">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="">
+                        <a class="nav-link active" aria-current="page" href="{{ path('app_profile_edit') }}">
                             <span data-feather="home" class="align-text-bottom"></span>
-                            Questions
+                            Edit profile
                         </a>
                     </li>
 
@@ -197,6 +197,15 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 {% block contentHeader %}{% endblock %}
             </div>
+            {% if app.session.flashbag.peekAll() is not empty %}
+                {% for type, messages in app.session.flashbag.all %}
+                    {% for message in messages %}
+                        <div class="{{ type ? type : '' }} alert alert-info" role="alert">
+                            {{ message|trans({}, domain|default('messages')) }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
             {% block body %}{% endblock %}
         </main>
     </div>

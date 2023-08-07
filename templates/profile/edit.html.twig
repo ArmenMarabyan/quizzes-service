@@ -1,0 +1,16 @@
+{% extends 'profile/base.html.twig' %}
+
+{% block title %}
+    {{ contentTitle }}
+{% endblock %}
+
+{% block contentTitle %}
+    {{ contentTitle }}
+{% endblock %}
+
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

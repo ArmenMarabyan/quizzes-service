@@ -12,7 +12,7 @@
 - [x] Создать категории для Quiz
 - [x] Создать страницу категорий
 - [x] Login/Register for users/candidates
-- [ ] User profile
+- [x] User profile
 - [ ] User quiz CRUD
 - [ ] Создать страницу кандидатов викторин
 
