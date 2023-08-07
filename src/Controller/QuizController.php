@@ -35,10 +35,16 @@ class QuizController extends AbstractController
     {
         $quiz = $this->quizRepository->find($quiz);
 
+        if (null === $quiz) {
+            throw $this->createNotFoundException('The quiz does not exist');
+        }
+
         $defaultData = [];
         $form = $this->createFormBuilder($defaultData);
 
-        foreach ($quiz->getQuestions() as $question) {
+        $questions = $quiz->getQuestions();
+
+        foreach ($questions as $question) {
             $form = $form->add('answer' . $question->getId(),ChoiceType::class, options: [
                 'label' => $question->getTitle(),
                 'choices' => array_flip($question->getAnswersForSelect()),

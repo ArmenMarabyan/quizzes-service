@@ -14,11 +14,13 @@
         "symfony/dotenv": "6.3.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.3.*",
+        "symfony/mailer": "6.3.*",
         "symfony/runtime": "6.3.*",
         "symfony/security-core": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
         "symfony/webpack-encore-bundle": "^2.0",
-        "symfony/yaml": "6.3.*"
+        "symfony/yaml": "6.3.*",
+        "symfonycasts/verify-email-bundle": "^1.13"
     },
     "config": {
         "allow-plugins": {
