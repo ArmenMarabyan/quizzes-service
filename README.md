@@ -13,7 +13,9 @@
 - [x] Создать страницу категорий
 - [x] Login/Register for users/candidates
 - [x] User profile
-- [ ] User quiz CRUD
+- [x] User quiz CRUD
+- [ ] User questions CRUD
+- [ ] User answers CRUD
 - [ ] Создать страницу кандидатов викторин
 
 ### Front end improvements

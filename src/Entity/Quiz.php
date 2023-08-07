@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\QuizRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuizRepository::class)]
@@ -35,6 +36,12 @@ class Quiz
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'quizzes')]
     private Collection $category;
+
+    #[ORM\Column(type: Types::SMALLINT, nullable: true)]
+    private ?int $status = null;
+
+    #[ORM\ManyToOne(inversedBy: 'quizzes')]
+    private ?User $_user = null;
 
     public function __construct()
     {
@@ -162,6 +169,30 @@ class Quiz
     public function removeCategory(Category $category): static
     {
         $this->category->removeElement($category);
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?int $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->_user;
+    }
+
+    public function setUser(?User $_user): static
+    {
+        $this->_user = $_user;
 
         return $this;
     }
