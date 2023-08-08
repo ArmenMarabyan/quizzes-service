@@ -28,6 +28,17 @@ class QuestionsController extends AbstractController
         ]);
     }
 
+    #[Route('/profile/quizzes/{quiz<\d+>}/questions/{question<\d+>}', name: 'app_profile_quizzes_questions_show')]
+    public function show(Request $request, Quiz $quiz, Question $question): Response
+    {
+        return $this->render('profile/quiz/questions/show.html.twig', [
+            'quiz' => $quiz,
+            'question' => $question,
+            'answers' => $question->getAnswers(),
+            'contentTitle' => $question->getTitle()
+        ]);
+    }
+
     #[Route('/profile/quizzes/{quiz<\d+>}/questions/create', name: 'app_profile_quizzes_questions_create')]
     public function create(Request $request, Quiz $quiz): Response
     {

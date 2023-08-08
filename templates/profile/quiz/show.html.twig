@@ -36,6 +36,7 @@
                         <td>{{ question.summary }}</td>
                         <td>{{ question.description }}</td>
                         <td>
+                            <a href="{{ path('app_profile_quizzes_questions_show', {'quiz': quiz.id, 'question':question.id}) }}" class="btn btn-primary">Show</a>
                             <a href="{{ path('app_profile_quizzes_questions_edit', {'quiz': quiz.id, 'question':question.id}) }}" class="btn btn-primary">Edit</a>
                             <a href="{{ path('app_profile_quizzes_questions_delete', {'quiz': quiz.id, 'question':question.id}) }}"
                                class="btn btn-danger">Delete</a>

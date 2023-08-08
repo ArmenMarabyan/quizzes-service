@@ -14,8 +14,8 @@
 - [x] Login/Register for users/candidates
 - [x] User profile
 - [x] User quiz CRUD
-- [ ] User questions CRUD
-- [ ] User answers CRUD
+- [x] User questions CRUD
+- [x] User answers CRUD
 - [ ] Создать страницу кандидатов викторин
 
 ### Front end improvements
