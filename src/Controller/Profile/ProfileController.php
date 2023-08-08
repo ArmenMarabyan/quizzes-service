@@ -63,6 +63,17 @@ class ProfileController extends AbstractController
         ]);
     }
 
+    #[Route('/profile/quizzes/{quiz<\d+>}', name: 'app_profile_quizzes_show')]
+    public function quizzesShow(Request $request, Quiz $quiz): Response
+    {
+
+        return $this->render('profile/quiz/show.html.twig', [
+            'quiz' => $quiz,
+            'questions' => $quiz->getQuestions(),
+            'contentTitle' => $quiz->getTitle()
+        ]);
+    }
+
     #[Route('/profile/quizzes/create', name: 'app_profile_quizzes_create')]
     public function createQuiz(Request $request): Response
     {

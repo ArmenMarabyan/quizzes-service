@@ -16,9 +16,19 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class QuizRepository extends ServiceEntityRepository
 {
+    private const VALID_QUIZ_STATUS = 1;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Quiz::class);
+    }
+
+    /**
+     * @return Quiz[] Returns an array of Quiz objects
+     */
+    public function findAll(): array
+    {
+        return $this->findBy(['status' => self::VALID_QUIZ_STATUS]);
     }
 
 //    /**

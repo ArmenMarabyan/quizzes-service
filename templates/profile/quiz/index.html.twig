@@ -38,6 +38,7 @@
                     <td>{{ quiz.duration }}</td>
                     <td></td>
                     <td>
+                        <a href="{{ path('app_profile_quizzes_show', {'quiz': quiz.id}) }}" class="btn btn-primary">Show</a>
                         <a href="{{ path('app_profile_quizzes_edit', {'quiz': quiz.id}) }}" class="btn btn-primary">Edit</a>
                         <a href="{{ path('app_profile_quizzes_delete', {'quiz': quiz.id}) }}" class="btn btn-danger">Delete</a>
                     </td>
