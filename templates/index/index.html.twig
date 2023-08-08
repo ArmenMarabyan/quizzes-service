@@ -6,6 +6,12 @@
     <div class="quizzes mt-5">
         <div class="row">
             <div class="col-lg-8 m-auto">
+                    <div class="categories d-flex mt-5 mb-5">
+                        <a href="" class="btn btn-info">All</a>
+                        {% for category in categories %}
+                            <a href="{{ path('app_category', {'category':category.id}) }}" class="btn btn-outline-info" style="margin-left: 10px;">{{ category.name }}</a>
+                        {% endfor %}
+                    </div>
                 <div class="cards d-flex">
                     {% for quiz in quizzes %}
                         <div class="card" style="width: 18rem; min-width: 20%;">

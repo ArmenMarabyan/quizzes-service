@@ -16,7 +16,7 @@
 - [x] User quiz CRUD
 - [x] User questions CRUD
 - [x] User answers CRUD
-- [ ] Создать страницу кандидатов викторин
+- [x] Создать страницу кандидатов викторин
 
 ### Front end improvements
 

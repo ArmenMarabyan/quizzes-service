@@ -43,10 +43,14 @@ class Quiz
     #[ORM\ManyToOne(inversedBy: 'quizzes')]
     private ?User $_user = null;
 
+    #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: QuizResult::class)]
+    private Collection $quizResults;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->category = new ArrayCollection();
+        $this->quizResults = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +197,36 @@ class Quiz
     public function setUser(?User $_user): static
     {
         $this->_user = $_user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QuizResult>
+     */
+    public function getQuizResults(): Collection
+    {
+        return $this->quizResults;
+    }
+
+    public function addQuizResult(QuizResult $quizResult): static
+    {
+        if (!$this->quizResults->contains($quizResult)) {
+            $this->quizResults->add($quizResult);
+            $quizResult->setQuiz($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuizResult(QuizResult $quizResult): static
+    {
+        if ($this->quizResults->removeElement($quizResult)) {
+            // set the owning side to null (unless already changed)
+            if ($quizResult->getQuiz() === $this) {
+                $quizResult->setQuiz(null);
+            }
+        }
 
         return $this;
     }

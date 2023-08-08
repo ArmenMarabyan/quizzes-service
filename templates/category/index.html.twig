@@ -6,12 +6,19 @@
     <div class="categories mt-5">
         <div class="row">
             <div class="col-lg-8 m-auto">
-                <div class="d-flex">
-                    <ul class="nav-link">
-                        {% for category in categories %}
-                            <li><a class="dropdown-item" href="{{ path('app_category', {'category':category.id}) }}">{{ category.name }}</a></li>
-                        {% endfor %}
-                    </ul>
+{#                <div class="d-flex">#}
+{#                    <ul class="nav-link">#}
+{#                        {% for category in categories %}#}
+{#                            <li><a class="dropdown-item" href="{{ path('app_category', {'category':category.id}) }}">{{ category.name }}</a></li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+{#                    #}
+{#                </div>#}
+                <div class="categories d-flex mt-5 mb-5">
+                    <a href="" class="btn btn-info">All</a>
+                    {% for category in categories %}
+                        <a href="{{ path('app_category', {'category':category.id}) }}" class="btn btn-outline-info" style="margin-left: 10px;">{{ category.name }}</a>
+                    {% endfor %}
                 </div>
             </div>
         </div>

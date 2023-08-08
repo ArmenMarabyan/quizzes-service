@@ -11,63 +11,49 @@
                         <img style="max-height: 200px; max-width: 100%;" src="https://www.php.net/images/meta-image.png" class="card-img-top" alt="...">
                     </div>
                     <div class="card-header">
-                        <h5 class="card-title">{{ quiz.title }}</h5>
+                        <h5 class="card-title text-center">{{ quiz.title }}</h5>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">{{ quiz.summary ?? 'desc' }}</p>
-                        {% if quiz.duration > 0 %}
-                        <div id="timer" data-duration="{{ quiz.duration }}"></div>
-                        {% endif %}
+                        <p class="card-text">{{ quiz.summary ?? 'summary' }}</p>
+                        <p class="card-text">{{ quiz.description ?? 'description' }}</p>
+                        <a href="{{ path('app_quiz_questions', {'quiz': quiz.id}) }}" class="btn btn-outline-primary">Пройти</a>
                     </div>
                 </div>
 
-                <div class="questions">
-                    {{ form(form) }}
-                    {% for k,question in quiz.getQuestions() %}
-{#                    <div class="card text-dark bg-light mb-3" style="">#}
-{#                        <div class="card-header">Question {{ k+1 }}</div>#}
-{#                        <div class="card-body">#}
-{#                            <h5 class="card-title">{{ question.title }}</h5>#}
-{#                            <p class="card-text">{{ question.summary }}</p>#}
-{#                            <div class="answers">#}
-{#                                <div class="form-check">#}
-{#                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">#}
-{#                                    <label class="form-check-label" for="flexRadioDefault1">#}
-{#                                        Default radio#}
-{#                                    </label>#}
-{#                                </div>#}
-{#                                <div class="form-check">#}
-{#                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>#}
-{#                                    <label class="form-check-label" for="flexRadioDefault2">#}
-{#                                        Default checked radio#}
-{#                                    </label>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-                    {% endfor %}
+                <div class="card mb-5 candidates">
+                    <div class="card-header">
+                        <h5 class="card-title text-center">Top candidates</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First name</th>
+                                <th scope="col">Last name</th>
+                                <th scope="col">Questions count</th>
+                                <th scope="col">Answered</th>
+                                <th scope="col">Score</th>
+                                <th scope="col">Пройден</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for k,result in quiz.quizResults() %}
+                                <tr>
+                                    <th scope="row">{{ result.id }}</th>
+                                    <td>{{ result.getUser().getFirstName() }}</td>
+                                    <td>{{ result.getUser().getLastName() }}</td>
+                                    <td>{{ result.getAnswersCount() }}</td>
+                                    <td>{{ result.getCorrectAnswersCount() }}</td>
+                                    <td>{{ result.getScore() }}</td>
+                                    <td>{{ result.getCreatedAt()|date('d-m-Y H:i:s') }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        window.onload = function() {
-            var minute = $('#timer').data('duration')-1;
-            var sec = 59;
-            setInterval(function() {
-                document.getElementById("timer").innerHTML = minute + ":" + sec;
-                sec--;
-
-                if (sec == 00) {
-                    minute--;
-                    sec = 60;
-
-                    if (minute == 0) {
-                        minute = 5;
-                    }
-                }
-            }, 1000);
-        }
-    </script>
 {% endblock %}
