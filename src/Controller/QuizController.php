@@ -40,8 +40,6 @@ class QuizController extends AbstractController
     {
         $quiz = $this->quizRepository->find($quiz);
 
-//        dd($quiz);
-
         if (null === $quiz) {
             throw $this->createNotFoundException('The quiz does not exist');
         }

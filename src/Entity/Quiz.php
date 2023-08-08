@@ -44,6 +44,7 @@ class Quiz
     private ?User $_user = null;
 
     #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: QuizResult::class)]
+    #[ORM\OrderBy(['id' => 'desc'])]
     private Collection $quizResults;
 
     public function __construct()

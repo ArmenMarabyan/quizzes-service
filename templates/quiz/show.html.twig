@@ -41,8 +41,8 @@
                             {% for k,result in quiz.quizResults() %}
                                 <tr>
                                     <th scope="row">{{ result.id }}</th>
-                                    <td>{{ result.getUser().getFirstName() }}</td>
-                                    <td>{{ result.getUser().getLastName() }}</td>
+                                    <td>{{ result.getUser().getFirstName() ?? 'Guest' }}</td>
+                                    <td>{{ result.getUser().getLastName() ?? 'Guest' }}</td>
                                     <td>{{ result.getAnswersCount() }}</td>
                                     <td>{{ result.getCorrectAnswersCount() }}</td>
                                     <td>{{ result.getScore() }}</td>
