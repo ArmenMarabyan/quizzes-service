@@ -47,6 +47,7 @@
                                     <td>{{ result.getCorrectAnswersCount() }}</td>
                                     <td>{{ result.getScore() }}</td>
                                     <td>{{ result.getCreatedAt()|date('d-m-Y H:i:s') }}</td>
+{#                                    <td>{{ result.createdAt|format_datetime('medium', 'short') }}</td>#}
                                 </tr>
                             {% endfor %}
                             </tbody>

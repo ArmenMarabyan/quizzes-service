@@ -21,7 +21,8 @@
         "symfony/webpack-encore-bundle": "^2.0",
         "symfony/yaml": "6.3.*",
         "symfonycasts/reset-password-bundle": "^1.17",
-        "symfonycasts/verify-email-bundle": "^1.13"
+        "symfonycasts/verify-email-bundle": "^1.13",
+        "twig/intl-extra": "^3.7"
     },
     "config": {
         "allow-plugins": {
