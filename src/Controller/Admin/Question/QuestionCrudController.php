@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Question;
 use App\Entity\Question;
 use App\Entity\Quiz;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -13,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 class QuestionCrudController extends AbstractCrudController
 {
@@ -21,15 +23,28 @@ class QuestionCrudController extends AbstractCrudController
         return Question::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Question')
+            ->setEntityLabelInPlural('Questions')
+            ->setSearchFields(['title', 'summary', 'description'])
+            ->setDefaultSort(['createdAt' => 'DESC']);
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add(EntityFilter::new('quiz'))
+            ->add('title');
+    }
+
     public function configureFields(string $pageName): iterable
     {
-
-
-//        yield IdField::new('id');
         yield AssociationField::new('quiz');
         yield TextField::new('title');
         yield TextEditorField::new('summary');
-        yield TextEditorField::new('description');
+        yield TextEditorField::new('description')->hideOnIndex();
 
         $createdAt = DateTimeField::new('createdAt')->setFormTypeOptions([
             'years' => range(date('Y'), date('Y') + 5),

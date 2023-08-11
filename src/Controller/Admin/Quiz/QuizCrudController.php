@@ -4,6 +4,7 @@ namespace App\Controller\Admin\Quiz;
 
 use App\Entity\Quiz;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
@@ -11,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 class QuizCrudController extends AbstractCrudController
 {
@@ -19,13 +21,29 @@ class QuizCrudController extends AbstractCrudController
         return Quiz::class;
     }
 
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Quiz')
+            ->setEntityLabelInPlural('Quizzes')
+            ->setSearchFields(['title'])
+            ->setDefaultSort(['id' => 'DESC']);
+    }
+
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add(EntityFilter::new('category'))
+            ->add('title')
+            ->add('status');
+    }
+
     public function configureFields(string $pageName): iterable
     {
         yield AssociationField::new('category');
         yield TextField::new('title');
         yield TextField::new('slug');
         yield TextField::new('duration');
-//        yield BooleanField::new('status');
         yield NumberField::new('status');
 
         $createdAt = DateTimeField::new('createdAt')->setFormTypeOptions([
