@@ -21,6 +21,7 @@
   - [ ] Pagination
   - [x] Sessions in DB
   - [x] Обработка событий
+  - [ ] Жизненный цикл объектов Doctrine
 
 ### Front end improvements
 
