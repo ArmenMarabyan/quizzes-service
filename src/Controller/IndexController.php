@@ -18,11 +18,11 @@ class IndexController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(): Response
     {
-        $categories = $this->categoryRepository->findAll();
+//        $categories = $this->categoryRepository->findAll();
         $quizzes = $this->quizRepository->findAll();
 
         return $this->render('index/index.html.twig', [
-            'categories' => $categories ?? [],
+//            'categories' => $categories ?? [],
             'quizzes' => $quizzes ?? [],
         ]);
     }

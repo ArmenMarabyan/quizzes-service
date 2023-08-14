@@ -18,8 +18,9 @@
 - [x] User answers CRUD
 - [x] Создать страницу кандидатов викторин
 - [ ] Еще раз пройтись по быстрому старту
-- [ ] Pagination
-- [x] Sessions  in DB
+  - [ ] Pagination
+  - [x] Sessions in DB
+  - [x] Обработка событий
 
 ### Front end improvements
 
