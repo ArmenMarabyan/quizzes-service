@@ -6,8 +6,12 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[UniqueEntity('slug')]
 class Category
 {
     #[ORM\Id]
@@ -18,7 +22,7 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
     private ?string $slug = null;
 
     #[ORM\Column(nullable: true)]
@@ -64,9 +68,29 @@ class Category
         return $this;
     }
 
+    public function computeSlug(SluggerInterface $slugger)
+    {
+        $this->slug = (string) $slugger->slug((string) $this)->lower();
+//        if (!$this->slug || '-' == $this->slug) {
+//            $this->slug = (string) $slugger->slug((string) $this)->lower();
+//        }
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue()
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function setCreatedAt(?\DateTimeImmutable $createdAt): static
