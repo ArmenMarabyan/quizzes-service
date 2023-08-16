@@ -54,7 +54,97 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="quiz_comments mt-5 mb-5">
+
+                    <div class="row height d-flex justify-content-center align-items-center">
+
+                        <div class="card">
+
+                            <div class="p-3">
+
+                                <h6>Comments</h6>
+
+                            </div>
+
+                            {{ form(comment_form) }}
+
+                            {% if comments is defined and comments|length > 0 %}
+                                {% for  comment in comments %}
+                                    <div class="mt-2">
+                                        <div class="d-flex flex-row p-3">
+
+                                            <img src="{{ asset('/uploads/photos/' ~ comment.getPhotoFilename() ) }}" width="40" height="40" class="rounded-circle">
+
+                                            <div class="w-100 ml-3">
+
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <span class="mr-2">{{ comment.getUser().getFirstName() ?? '' }}</span>
+                                                        {#                                                <small class="c-badge">Top Comment</small>#}
+                                                    </div>
+                                                    <small>{{ comment.createdAt|date('Y-m-d H:i:s') }}</small>
+                                                </div>
+
+                                                <p class="text-justify comment-text mb-0">{{  comment.text }}</p>
+
+                                                <div class="d-flex flex-row user-feed">
+                                                    <span class="wish"><i class="fa fa-heartbeat mr-2"></i>24</span>
+                                                    <span class="ml-3"><i class="fa fa-comments-o mr-2"></i>Reply</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
+
+    <style>
+        .quiz_comments .form-control input[type=text]{
+            height: 48px;
+            border-radius: 25px;
+        }
+
+        .quiz_comments .form-control:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #35b69f;
+            outline: 0;
+            box-shadow: none;
+            text-indent: 10px;
+        }
+
+        .quiz_comments .c-badge{
+            background-color: #35b69f;
+            color: white;
+            height: 20px;
+            font-size: 11px;
+            width: 92px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2px;
+        }
+
+        .quiz_comments .comment-text{
+            font-size: 13px;
+        }
+
+        .quiz_comments .wish{
+            color:#35b69f;
+        }
+
+
+        .user-feed{
+            font-size: 14px;
+            margin-top: 12px;
+        }
+    </style>
 {% endblock %}

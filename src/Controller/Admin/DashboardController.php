@@ -8,6 +8,7 @@ use App\Entity\Answer;
 use App\Entity\Category;
 use App\Entity\Question;
 use App\Entity\Quiz;
+use App\Entity\QuizComment;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -44,7 +45,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Symfony');
+            ->setTitle('Quizzes');
     }
 
     public function configureMenuItems(): iterable
@@ -54,6 +55,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Quiz', 'fas fa-list', Quiz::class);
         yield MenuItem::linkToCrud('Question', 'fas fa-list', Question::class);
         yield MenuItem::linkToCrud('Answer', 'fas fa-list', Answer::class);
+        yield MenuItem::linkToCrud('Quiz comments', 'fas fa-list', QuizComment::class);
 
     }
 }

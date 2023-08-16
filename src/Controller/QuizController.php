@@ -3,11 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Quiz;
+use App\Entity\QuizComment;
 use App\Entity\QuizResult;
+use App\Form\QuizCommentType;
 use App\Repository\AnswerRepository;
+use App\Repository\CommentRepository;
+use App\Repository\QuizCommentRepository;
 use App\Repository\QuizRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,7 +26,8 @@ class QuizController extends AbstractController
     public function __construct(
         private QuizRepository $quizRepository,
         private AnswerRepository $answerRepository,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private QuizCommentRepository $quizCommentRepository
     ) {
     }
 
@@ -36,16 +42,40 @@ class QuizController extends AbstractController
     }
 
     #[Route('/quizzes/{quiz<\d+>}', name: 'app_quiz')]
-    public function show(Request $request, $quiz): Response
+    public function show(Request $request, $quiz, #[Autowire('%photo_dir%')] string $photoDir): Response
     {
         $quiz = $this->quizRepository->find($quiz);
+
+        $comment = new QuizComment();
+        $form = $this->createForm(QuizCommentType::class, $comment);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($this->getUser());
+            $comment->setQuiz($quiz);
+
+            if ($photo = $form['photo']->getData()) {
+                $filename = bin2hex(random_bytes(6)) . '.' . $photo->guessExtension();
+                $photo->move($photoDir, $filename);
+                $comment->setPhotoFilename($filename);
+            }
+
+            $this->entityManager->persist($comment);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_quiz', ['quiz' => $quiz->getId()]);
+        }
 
         if (null === $quiz) {
             throw $this->createNotFoundException('The quiz does not exist');
         }
+        
+        $comments = $this->quizCommentRepository->findBy(['quiz' => $quiz->getId()], ['id' => 'desc']);
 
         return $this->render('quiz/show.html.twig', [
-            'quiz' => $quiz
+            'quiz' => $quiz,
+            'comment_form' => $form,
+            'comments' => $comments
         ]);
     }
 

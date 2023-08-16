@@ -17,11 +17,14 @@
 - [x] User questions CRUD
 - [x] User answers CRUD
 - [x] Создать страницу кандидатов викторин
+- [ ] Implement Pages  functionality
 - [ ] Еще раз пройтись по быстрому старту
   - [ ] Pagination
   - [x] Sessions in DB
   - [x] Обработка событий
   - [x] Жизненный цикл объектов Doctrine
+  - [ ] Получение обратной связи с помощью форм
+    - [x] Quiz comments implementation
 
 ### Front end improvements
 

@@ -47,11 +47,15 @@ class Quiz
     #[ORM\OrderBy(['id' => 'desc'])]
     private Collection $quizResults;
 
+    #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: QuizComment::class, orphanRemoval: true)]
+    private Collection $quizComments;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->category = new ArrayCollection();
         $this->quizResults = new ArrayCollection();
+        $this->quizComments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,6 +230,36 @@ class Quiz
             // set the owning side to null (unless already changed)
             if ($quizResult->getQuiz() === $this) {
                 $quizResult->setQuiz(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, QuizComment>
+     */
+    public function getQuizComments(): Collection
+    {
+        return $this->quizComments;
+    }
+
+    public function addQuizComment(QuizComment $quizComment): static
+    {
+        if (!$this->quizComments->contains($quizComment)) {
+            $this->quizComments->add($quizComment);
+            $quizComment->setQuiz($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuizComment(QuizComment $quizComment): static
+    {
+        if ($this->quizComments->removeElement($quizComment)) {
+            // set the owning side to null (unless already changed)
+            if ($quizComment->getQuiz() === $this) {
+                $quizComment->setQuiz(null);
             }
         }
 

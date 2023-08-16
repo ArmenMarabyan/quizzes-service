@@ -47,10 +47,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: '_user', targetEntity: QuizResult::class)]
     private Collection $quizResults;
 
+    #[ORM\OneToMany(mappedBy: '_user', targetEntity: QuizComment::class, orphanRemoval: true)]
+    private Collection $quizComments;
+
     public function __construct()
     {
         $this->quizzes = new ArrayCollection();
         $this->quizResults = new ArrayCollection();
+        $this->quizComments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -217,5 +221,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, QuizComment>
+     */
+    public function getQuizComments(): Collection
+    {
+        return $this->quizComments;
+    }
+
+    public function addQuizComment(QuizComment $quizComment): static
+    {
+        if (!$this->quizComments->contains($quizComment)) {
+            $this->quizComments->add($quizComment);
+            $quizComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuizComment(QuizComment $quizComment): static
+    {
+        if ($this->quizComments->removeElement($quizComment)) {
+            // set the owning side to null (unless already changed)
+            if ($quizComment->getUser() === $this) {
+                $quizComment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+    
+    public function __toString(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }
