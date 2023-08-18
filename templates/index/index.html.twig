@@ -4,6 +4,7 @@
 
 {% block body %}
     <div class="quizzes mt-5">
+        <h1 class="text-center">Quizzes</h1>
         <div class="row">
             <div class="col-lg-8 m-auto">
                     <div class="categories d-flex mt-5 mb-5">
@@ -19,7 +20,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ quiz.title }}</h5>
                                 <p class="card-text">{{ quiz.summary ?? 'desc' }}</p>
-                                <a href="{{ path('app_quiz', {'quiz':quiz.id}) }}" class="btn btn-primary">Пройти</a>
+                                <a href="{{ path('app_quiz', {'slug':quiz.slug}) }}" class="btn btn-primary">Пройти</a>
                             </div>
                         </div>
                     {% endfor %}

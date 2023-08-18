@@ -34,17 +34,20 @@ class QuizController extends AbstractController
     #[Route('/quizzes', name: 'app_quizzes')]
     public function index(): Response
     {
-        $quizzes = $this->quizRepository->findAll();
+        $quizzes = $this->quizRepository->findBy([], ['id' => 'DESC']);
 
         return $this->render('quiz/index.html.twig', [
             'quizzes' => $quizzes,
         ]);
     }
 
-    #[Route('/quizzes/{quiz<\d+>}', name: 'app_quiz')]
-    public function show(Request $request, $quiz, #[Autowire('%photo_dir%')] string $photoDir): Response
+//    #[Route('/quizzes/{quiz<\d+>}', name: 'app_quiz')]
+    #[Route('/quizzes/{slug}', name: 'app_quiz')]
+    public function show(Request $request, $slug, #[Autowire('%photo_dir%')] string $photoDir): Response
     {
-        $quiz = $this->quizRepository->find($quiz);
+        $quiz = $this->quizRepository->findBy(['slug' => $slug]);
+
+        $quiz = isset($quiz[0]) ? $quiz[0] : null;
 
         $comment = new QuizComment();
         $form = $this->createForm(QuizCommentType::class, $comment);
@@ -63,7 +66,7 @@ class QuizController extends AbstractController
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_quiz', ['quiz' => $quiz->getId()]);
+            return $this->redirectToRoute('app_quiz', ['slug' => $quiz->getSlug()]);
         }
 
         if (null === $quiz) {

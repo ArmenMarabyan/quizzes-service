@@ -19,7 +19,7 @@ class IndexController extends AbstractController
     public function index(): Response
     {
 //        $categories = $this->categoryRepository->findAll();
-        $quizzes = $this->quizRepository->findAll();
+        $quizzes = $this->quizRepository->findBy([], ['id' => 'DESC']);
 
         return $this->render('index/index.html.twig', [
 //            'categories' => $categories ?? [],

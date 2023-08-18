@@ -9,12 +9,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminAuthController extends AbstractController
 {
-    #[Route(path: '/admin/login', name: 'app_admin_login')]
+    #[Route(path: '/login/admin', name: 'app_admin_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+         if ($this->getUser()) {
+             return $this->redirectToRoute('admin');
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

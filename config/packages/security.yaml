@@ -25,12 +25,29 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+
+        user_secured_area:
+            pattern: ^/
+            #            anonymous: ~
+            provider: app_user_provider
+            form_login:
+                login_path: /login/user
+                check_path: /login_check
+                default_target_path: /login/user
+                username_parameter: email
+                password_parameter: password
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: /login/user
+            entry_point: 'form_login'
         admin_secured_area:
             pattern: ^/admin
             #            anonymous: ~
             provider: app_admin_provider
             form_login:
-                login_path: /admin/login
+                login_path: /login/admin
                 check_path: /admin/login_check
                 default_target_path: /admin/login
                 username_parameter: email
@@ -40,25 +57,11 @@ security:
             logout:
                 path: app_logout
                 # where to redirect after logout
-                target: /admin/login
-            entry_point: 'form_login'
-            custom_authenticator: App\Security\AdminAuthenticator
+                target: /login/admin
+#            entry_point: 'form_login'
+#            custom_authenticator: App\Security\AdminAuthenticator
 
-        user_secured_area:
-            pattern: ^/
-            #            anonymous: ~
-            provider: app_user_provider
-            form_login:
-                login_path: /login
-                check_path: /login_check
-                default_target_path: /login
-                username_parameter: email
-                password_parameter: password
-            logout:
-                path: app_logout
-                # where to redirect after logout
-                target: /login
-            entry_point: 'form_login'
+
 
               #        main:
               #            lazy: true
@@ -80,8 +83,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-#        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
+#        - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:
     security:

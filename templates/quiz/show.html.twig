@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello QuizController!{% endblock %}
+{% block title %}Quiz: {{ quiz.title }}{% endblock %}
 
 {% block body %}
     <div class="quizzes mt-5">
@@ -11,7 +11,7 @@
                         <img style="max-height: 200px; max-width: 100%;" src="https://www.php.net/images/meta-image.png" class="card-img-top" alt="...">
                     </div>
                     <div class="card-header">
-                        <h5 class="card-title text-center">{{ quiz.title }}</h5>
+                        <h2 class="card-title text-center">{{ quiz.title }}</h2>
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{ quiz.summary ?? 'summary' }}</p>
@@ -62,9 +62,7 @@
                         <div class="card">
 
                             <div class="p-3">
-
-                                <h6>Comments</h6>
-
+                                <h6>Comments ({{ comments|length }})</h6>
                             </div>
 
                             {{ form(comment_form) }}
