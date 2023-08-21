@@ -45,6 +45,7 @@ class QuizCommentCrudController extends AbstractCrudController
             ->onlyOnIndex();
         yield AssociationField::new('quiz');
         yield TextEditorField::new('text')->hideOnIndex();
+        yield TextField::new('state');
 
         $createdAt = DateTimeField::new('createdAt')->setFormTypeOptions([
             'years' => range(date('Y'), date('Y') + 5),

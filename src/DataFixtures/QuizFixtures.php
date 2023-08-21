@@ -29,6 +29,8 @@ class QuizFixtures extends Fixture
         $comment = new QuizComment();
         $comment->setText('test comment for quiz 2');
         $comment->setQuiz($quiz1);
+        $comment->setState('published');
+
         $manager->persist($comment);
 
         $manager->flush();

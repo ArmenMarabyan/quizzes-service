@@ -6,6 +6,7 @@ use App\Entity\Quiz;
 use App\Entity\QuizComment;
 use App\Entity\QuizResult;
 use App\Form\QuizCommentType;
+use App\Message\QuizCommentMessage;
 use App\Repository\AnswerRepository;
 use App\Repository\CommentRepository;
 use App\Repository\QuizCommentRepository;
@@ -18,6 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,7 +29,8 @@ class QuizController extends AbstractController
         private QuizRepository $quizRepository,
         private AnswerRepository $answerRepository,
         private EntityManagerInterface $entityManager,
-        private QuizCommentRepository $quizCommentRepository
+        private QuizCommentRepository $quizCommentRepository,
+        private MessageBusInterface $bus
     ) {
     }
 
@@ -66,6 +69,8 @@ class QuizController extends AbstractController
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
 
+            $this->bus->dispatch(new QuizCommentMessage($comment->getId()));
+
             return $this->redirectToRoute('app_quiz', ['slug' => $quiz->getSlug()]);
         }
 
@@ -73,7 +78,8 @@ class QuizController extends AbstractController
             throw $this->createNotFoundException('The quiz does not exist');
         }
         
-        $comments = $this->quizCommentRepository->findBy(['quiz' => $quiz->getId()], ['id' => 'desc']);
+//        $comments = $this->quizCommentRepository->findBy(['quiz' => $quiz->getId()], ['id' => 'desc']);
+        $comments = $this->quizCommentRepository->getComments($quiz);
 
         return $this->render('quiz/show.html.twig', [
             'quiz' => $quiz,
