@@ -20,9 +20,12 @@
         "symfony/security-core": "6.3.*",
         "symfony/twig-bundle": "6.3.*",
         "symfony/webpack-encore-bundle": "^2.0",
+        "symfony/workflow": "6.3.*",
         "symfony/yaml": "6.3.*",
         "symfonycasts/reset-password-bundle": "^1.17",
         "symfonycasts/verify-email-bundle": "^1.13",
+        "twig/cssinliner-extra": "^3",
+        "twig/inky-extra": "^3",
         "twig/intl-extra": "^3.7"
     },
     "config": {
