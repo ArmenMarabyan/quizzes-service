@@ -24,6 +24,6 @@ class IndexController extends AbstractController
         return $this->render('index/index.html.twig', [
 //            'categories' => $categories ?? [],
             'quizzes' => $quizzes ?? [],
-        ]);
+        ])->setSharedMaxAge(3600);
     }
 }

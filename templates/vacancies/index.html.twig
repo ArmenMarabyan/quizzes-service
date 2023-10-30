@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SearchController!{% endblock %}
+
+{% block body %}
+    <div class="container main-content p-3 mt-5">
+        {% include 'vacancies/form.html.twig' with {term: term ?? ''}%}
+
+        <div class="cards mt-5">
+            {% for k,item in items.items %}
+                <div class="card card-{{ k }}" style="margin-bottom: 10px;">
+                    <div class="card-body">
+                        <div class="card-body-info mb-3">
+                            <h4 class="card-title">
+                                <a href="{{ path('app_vacancies_show', {vacancy: item.id}) }}" target="_blank">{{ item.name }}</a>
+                            </h4>
+                            <h5 class="card-subtitle mb-2 text-muted">
+                                {% if item.salary %}
+                                    {{ item.salary.from }} - {{ item.salary.to }} {{ item.salary.currency }}
+                                {% endif %}
+                            </h5>
+                            <p class="card-subtitle mb-2">
+                                {% if item.employer %}
+                                    {{ item.employer.name }}
+                                {% endif %}
+                                <br>
+                                {% if item.area %}
+                                    {{ item.area.name }}
+                                {% endif %}
+                            </p>
+                            <div class="card-text">
+                                {% if item.experience %}
+                                    <div class="card__experience">
+                                        {{ item.experience.name }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-success card-link">Откликнуться</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

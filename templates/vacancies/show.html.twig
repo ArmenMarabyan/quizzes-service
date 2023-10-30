@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VController!{% endblock %}
+
+{% block body %}
+    <div class="container main-content p-3 mt-5">
+        {% include 'vacancies/form.html.twig' with {term: term ?? ''}%}
+
+        <div class="vacancy mt-5">
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="vacancy__section">
+                        <div class="vacancy__header d-flex justify-content-between">
+                            <div class="vacancy__header-title text-left">
+                                <h1>PHP-разработчик</h1>
+                            </div>
+                            <div class="vacancy__header-date text-right">
+                                <span>18 октября</span>
+                            </div>
+                        </div>
+                        <div class="section__content">
+                            <div class="section__content-header">Требования</div>
+                            <div class="section__content-body">
+                                <ul>
+                                    <li>PHP</li>
+                                    <li>Бэкенд разработчик</li>
+                                    <li>Grafana</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="section__content">
+                            <div class="section__content-header">Местоположение и тип занятости</div>
+                            <div class="section__content-body">
+                                <ul>
+                                    <li>Москва</li>
+                                    <li>Можно удалённо</li>
+                                    <li>Полный рабочий день</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vacancy__section">
+                        <h2 class="section__title">Описание вакансии</h2>
+                        <div class="vacancy__description">
+                            {#                            <div>#}
+                            {#                                <h3>О компании и команде</h3><div class="style-ugc"><p><strong>Вакансия открыта в ООО "Норникель Спутник" -&nbsp;<strong>аккредитованная IT-компания</strong>&nbsp;(дочернее общество ПАО "ГМК "Норильский никель")<br></strong><strong><br></strong><strong>Описание системы и его мобильного приложения:</strong></p>#}
+                            {#                                    <p>Система дистанционного обучения. Предоставляет возможность работникам Компании удаленно повышать свои навыки и компетенции. В приложении в основном работа ведется над API приложения, но также присутствуют CRUD задачи, так и более интересные: разработка нового функционала, интеграции с внутренними сервисами компании и т.д.</p>#}
+                            {#                                    <p>В системе используется SPA монолит, API написано на laravel 5.6. Также используется фреймворк Apiato для структурирования кода. Новый код пишем в стиле php 7.4, используем SOLID, придерживаемся единого стиля кода, который совместно улучшаем. Используем функциональные тесты для проверки кода: на сегодняшний день в CI создано более 500 тестов. Продуктивная среда система находится в DMZ, тестовая среда – локальная разработка в docker-compose. </p></div><h3>Ожидания от кандидата</h3><div class="style-ugc"><p>Мы ищем в команду людей с горящими глазами, желающих поучаствовать в развитии Ed Tech проекта. Если не знаете какую-либо из используемых у нас технологий - это не страшно, мы научим/поможем разобраться.</p>#}
+                            {#                                    <p>Мы используем гибкий процесс - обсуждаем задачи, декомпозируем, оцениваем риски, планируем сроки, а дальше каждый программист сам планирует своё время, чтобы уложиться в сроки. </p>#}
+                            {#                                    <p>В команде есть возможность получить навыки fullstack разработчика (изучить vue и/или react native). </p>#}
+                            {#                                    <p><strong>Стек технологий:</strong></p>#}
+                            {#                                    <ul><li>       PHP 7.4 </li><li>       laravel 5.6 AR, Route, Request, функциональные тесты</li><li>       Apiato - для структурирования кода (Controllers, Transporters, Actions, Tasks, Repositories, Transformers)</li><li>       PostrgeSQL 11 - СУБД</li><li>       Redis – для кэша</li><li>       Minio - для хранения файлов</li><li>       Beanstalk - для очередей</li><li>       Elasticsearch - для поиска по системе</li><li>       Grafana – система мониторинга</li><li>       Sentry – система логирования. </li><li>       Фронт написан на Vue, Nuxt</li><li>       Мобильное приложение Android/iOS на React Native</li></ul></div><h3>Условия работы</h3><div class="style-ugc"><ul><li>достойный уровень заработной платы, премия по итогам года;</li><li>полное соблюдение ТК РФ (оформление, оплата больничных, отпусков и пр.);</li><li>гибкий рабочий день;</li><li>ДМС, включая стоматологию;</li><li>возможен 100% удаленный формат работы.</li></ul></div><!----><!---->#}
+                            {#                            </div>#}
+
+
+                            <div>
+                                <div class="g-user-content" data-qa="vacancy-description"><p><strong><span>WinTech успешно развивает бизнес в сфере iGaming уже 12 лет, разрабатывая софт и продукты для международного рынка, постоянно расширяя свое присутствие в Европе и Латинской Америке.</span></strong></p> <p><span>Свои продукты мы ведем от создания и разработки стратегии продвижения до технической поддержки существующих пользователей и привлечения новых. Уже несколько iGaming продуктов, построенных на базе нашей платформы, успешно запущены и развиваются на зарубежных рынках.</span></p> <p><em><span>Мы ищем скиллового технического специалиста, который любит работать руками и головой! Того, кто сможет внедрять новые фишки, интегрироваться с новыми сервисами, знает и умеет в инфобез, в правильную организацию технической инфраструктуры, будет взаимодействовать с другими командами (бекенд / фронтенд), хедами/стейкхолдерами.</span></em></p> <p><strong><span>Чем предстоит заниматься:</span></strong></p> <ul> <li> <p><span>Администрировать парк серверов компании на Linux (10+ физических и 100+ виртуальных серверов);</span></p> </li> <li> <p><span>Обеспечивать надежность и безопасность работы технической инфраструктуры;</span></p> </li> <li> <p><span>Поддерживать работоспособность инфраструктуры - решать возникающие проблемы и заниматься проектированием и расширением "на перспективу"</span></p> </li> <li> <p><span>Масштабировать серверные мощности и обеспечивать отказоустойчивость;</span></p> </li> <li> <p><span>Troubleshooting инцидентов с программными продуктами компании;</span></p> </li> <li> <p><span>Заниматься построением системы CI/CD, настройкой workflow согласно требованиям, доработкой существующих pipelines, поиском и исправлением ошибок;</span></p> </li> <li> <p><span>Соблюдать платежную дисциплину по отношению к используемым сторонним сервисам.</span></p> </li> </ul> <p><strong><span>Профессиональный опыт и навыки:</span></strong></p> <ul> <li> <p><span>Опыт работы в роли Cloud инженер AWS от 2-х лет;</span></p> </li> <li> <p><span>Опыт администрирования Linux от 3-х лет (Debian/Ubuntu/CentOS);</span></p> </li> <li> <p><span>Глубокие знания по администрированию СУБД (PostgreSQL 12+ / ClickHouse), включая знания практик по распределению нагрузки и репликации данных (PgBouncer / PgCat), обеспечения системы непрерывного бекапа и валидации бекапов;</span></p> </li> <li> <p><span>Умение настраивать и администрировать сервера с Nginx / HAProxy / Apache, </span><span class="highlighted">php</span><span>7, Java, nodeJS;</span></p> </li> <li> <p><span>Опыт сопровождения продуктов на </span><span class="highlighted">PHP</span><span>: конфигурирование </span><span class="highlighted">php</span><span>-fpm, Node.js 16, pm2</span></p> </li> <li> <p><span>Умение в Troubleshooting (читать логи, выяснить где проблема, что сломалось и как исправить)</span></p> </li> <li> <p><span>Способность построить инфраструктуру по готовой архитектуре с нуля;</span></p> </li> <li> <p><span>Опыт работы с CI/CD конвейерами: GitLab CI/CD / Jenkins;</span></p> </li> <li> <p><span>Знание подхода IaC и и опыт управления инфраструктурой на основе ansible;</span></p> </li> <li> <p><span>Опыт работы с системами контейнеризации docker / Kubernetes / Docker Swarm</span></p> </li> <li> <p><span>Понимание работы почтовых протоколов и серверов Postfix/Dovecot, обеспечение доставляемости больших почтовых рассылок. Знание практик в настройке почтовых доменов (DKIM/SPF/DMARC);</span></p> </li> <li> <p><span>Знание базовых видов атак, и умение от них защищаться на уровнях layer 3 4 7.</span></p> </li> <li> <p><span>Навыки работы с системами виртуализации, построение кластерных систем на основе Proxmox/VMware ESXi;</span></p> </li> <li> <p><span>Умение настраивать сети: VPN (L2TP/IPsec / OpenVPN / Shadowsocks / XRay), маршрутизация, CDN, network load balancing (vrrp/keepalived), Iptables;</span></p> </li> <li> <p><span>Опыт работы с CloudFlare.</span></p> </li> </ul> <p><strong><span>Будет большим плюсом:</span></strong></p> <ul> <li> <p><span>Наличие сертификата AWS;</span></p> </li> <li> <p><span>Опыт работы с Openstack;</span></p> </li> <li> <p><span>Опыт работы в высоконагруженных проектах;</span></p> </li> <li> <p><span>Понимание менеджерского цикла;</span></p> </li> <li> <p><span>Знание дополнительных языков - Python, Bash;</span></p> </li> <li> <p><span>Опыт в настройке систем мониторинга: Zabbix / Prometheus / Grafana / Graylog / AWS CloudWatch / Sentry.</span></p> </li> </ul> <p><strong><span>Мы готовы предложить:</span></strong></p> <ul> <li> <p><span>Удаленный формат работы в графике 5/2 с гибким началом рабочего дня (с 8-10.00 по Мск.);</span></p> </li> <li> <p><span>Предоставление всей необходимой для работы техники после ИС;</span></p> </li> <li> <p><span>Занятия английским языком с корпоративным преподавателем 2 раза в неделю;</span></p> </li> <li> <p><span>Оплачиваемые российские и международные обучающие курсы;</span></p> </li> <li> <p><span>Индивидуальные сессии с корпоративным коучем по запросу;</span></p> </li> <li> <p><span>Активную корпоративную жизнь и общение с коллегами, как в сети, так и в реальном мире;</span></p> </li> <li> <p><span>Сильную команду профессионалов, где можно серьезно прокачать свои скиллы.</span></p> </li> </ul></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="vacancy__section">
+                        <div class="company">
+                            <a href="" class="company__logo">
+                                <img alt="Логотип компании «Норникель Спутник»" src="https://habrastorage.org/getpro/moikrug/uploads/company/100/008/481/5/logo/medium_83b5009e040969ee7b60362ad7426573.jpeg">
+                            </a>
+                            <div class="company__name">
+                                <a href="">Норникель Спутник</a>
+                            </div>
+                            <div class="company__about">Высокотехнологичное подразделение, оказывающее экспертную поддержку предприятиям группы компаний «Норильский никель»</div>
+                            <div class="company__link"><a href="">sputnik.nornik.ru</a></div>
+                            <div class="company__vacancies">
+                                <ul>
+                                    <li>Корпоративный Архитектор (Enterprise Architect)</li>
+                                    <li> Москва</li>
+                                    <li>  Архитектор</li>
+                                    <li>  Главный разработчик OpenText</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
