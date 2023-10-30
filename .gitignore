@@ -1,4 +1,4 @@
-/docker/
+#/docker/
 /public/uploads
 ###> symfony/framework-bundle ###
 /.env.local
