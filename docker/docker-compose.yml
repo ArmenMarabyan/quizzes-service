@@ -1,0 +1,85 @@
+version: "3"
+
+services:
+#  db:
+#    image: mysql:8.0.23
+#    platform: linux/x86_64
+#    command: --default-authentication-plugin=mysql_native_password
+#    volumes:
+#      - "db_app:/var/lib/mysql"
+#    environment:
+#      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#      MYSQL_DATABASE: ${MYSQL_DATABASE}
+#      MYSQL_USER: ${MYSQL_USER}
+#      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#    ports:
+#      - 3306:3306
+#    networks:
+#      - symfony
+  db:
+    image: postgres:${POSTGRES_VERSION:-14}-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      # You should definitely change the password in production
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    ports:
+      - "5433:5432"
+    volumes:
+      - ${DB_PATH_HOST}:/var/lib/postgresql/data:rw
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
+    networks:
+      - symfony
+
+  liquibase:
+    container_name: ${PREFIX}_liquibase
+    image: liquibase/liquibase:${LIQUIBASE_VERSION}
+    volumes:
+      - ${LIQUIBASE_PATH}:/liquibase/changelog
+    #    command: liquibase --url="jdbc:mariadb://db:3306/test" --changeLogFile=./changelog/changelog.xml --username=root --password=root rollbackCount 5
+    #    command: liquibase --url="jdbc:mariadb://db:3306/test" --changeLogFile=./changelog/changelog.xml --username=root --password=root tag t-1.0
+    #    command: liquibase --url="jdbc:mariadb://db:3306/test" --changeLogFile=./changelog/changelog.xml --username=root --password=root rollback t-1.0
+#    command: liquibase --url="jdbc:mariadb://db:3306/test" --changeLogFile=./changelog/changelog.xml --username=root --password=root update
+    command: liquibase --url="jdbc:postgresql://db:5432/quizzes?serverVersion=15&charset=utf8" --changeLogFile=./changelog/changelog.xml --username=app --password=!ChangeMe! update
+    #    command: liquibase --url="jdbc:mariadb://db:3306/test" --username=root --password=root --changeLogFile=mydatabase_changelog.xml generateChangeLog
+    depends_on:
+      - db
+    networks:
+      - symfony
+
+  php:
+    build:
+      context: ./php
+      args:
+        TIMEZONE: ${TIMEZONE}
+    volumes:
+      - ../:/var/www/symfony/
+    networks:
+      - symfony
+
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - ../:/var/www/symfony/
+    ports:
+      - 8088:80
+    networks:
+      - symfony
+    env_file:
+      - .env.nginx
+
+  mailer:
+    image: schickling/mailcatcher
+    ports: ["1025", "1080"]
+    networks:
+      - symfony
+
+volumes:
+#  symfony_dockerized_app_sync:
+#    external: true
+  db-data:
+
+networks:
+  symfony:
