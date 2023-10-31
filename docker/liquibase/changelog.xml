@@ -8,62 +8,30 @@
 
 
     <changeSet id="1" author="armen" runOnChange="true">
-        <createTable tableName="Person">
+        <createTable tableName="company">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false" />
+            </column>
+            <column name="site_url" type="VARCHAR(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="logo" type="VARCHAR(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
+            <column name="updated_at" type="TIMESTAMP">
+                <constraints nullable="true" />
+            </column>
         </createTable>
         <rollback>
             <dropTable  cascadeConstraints="true"
-                        tableName="Person"/>
-        </rollback>
-    </changeSet>
-
-    <changeSet id="2" author="armen">
-        <insert tableName="Person">
-            <column name="name" value="John Doe" />
-        </insert>
-        <rollback>
-            DELETE FROM Person WHERE name LIKE 'John Doe';
-        </rollback>
-    </changeSet>
-
-    <changeSet id="3" author="armen" runOnChange="true">
-        <addColumn tableName="Person">
-            <column name="firstname" type="VARCHAR(255)">
-                <constraints nullable="false" />
-            </column>
-            <column name="lastname" type="VARCHAR(255)">
-                <constraints nullable="false" />
-            </column>
-        </addColumn>
-    </changeSet>
-
-    <changeSet id="4" author="armen">
-        <sql>
-            UPDATE Person SET firstname = SUBSTRING_INDEX(name, ' ', 1);
-            UPDATE Person SET lastname = SUBSTRING_INDEX(name, ' ', -1);
-        </sql>
-        <rollback>
-            UPDATE Person SET firstname = '';
-            UPDATE Person SET lastname = '';
-        </rollback>
-    </changeSet>
-
-    <changeSet id="5" author="armen" runOnChange="true">
-        <dropColumn tableName="Person" columnName="name" />
-        <rollback>
-            <addColumn tableName="Person">
-                <column name="name" type="VARCHAR(255)">
-                    <constraints nullable="false" />
-                </column>
-            </addColumn>
-            <sql>
-                UPDATE Person SET name = CONCAT(firstname, CONCAT(' ', lastname));
-            </sql>
+                        tableName="company"/>
         </rollback>
     </changeSet>
 
