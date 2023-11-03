@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+
+    <changeSet id="1.1" author="armen">
+        <tagDatabase tag="create-admin" />
+    </changeSet>
+
+    <changeSet id="1.2" author="armen">
+        <createTable tableName="admin">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="admin_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(180)">
+                <constraints nullable="false" />
+            </column>
+            <column name="roles" type="JSON">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createIndex indexName="idx_uniq_admin_email" tableName="admin" unique="true">
+            <column name="email"/>
+        </createIndex>
+
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="admin_id_seq" startValue="1"/>
+        <rollback>
+            <dropTable cascadeConstraints="true"
+                        tableName="admin"/>
+
+            <sql>
+                DROP SEQUENCE admin_id_seq CASCADE
+            </sql>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

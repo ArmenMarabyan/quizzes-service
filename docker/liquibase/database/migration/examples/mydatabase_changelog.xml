@@ -1,0 +1,382 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet author="liquibase (generated)" id="1698844388627-1">
+        <createTable tableName="doctrine_migration_versions">
+            <column name="version" type="VARCHAR(191)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="doctrine_migration_versions_pkey"/>
+            </column>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="executed_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="execution_time" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-2">
+        <createTable tableName="admin">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="admin_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(180)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roles" type="JSON">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-3">
+        <createTable tableName="answer">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="answer_pkey"/>
+            </column>
+            <column name="question_id" type="INTEGER"/>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_true" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="point" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-4">
+        <createTable tableName="category">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="category_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="created_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="updated_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-5">
+        <createTable tableName="question">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="question_pkey"/>
+            </column>
+            <column name="quiz_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NULL::character varying" name="title" type="VARCHAR(255)"/>
+            <column defaultValue="NULL::character varying" name="summary" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="created_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="updated_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-6">
+        <createTable tableName="quiz">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="quiz_pkey"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="created_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="updated_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NULL::character varying" name="duration" type="VARCHAR(255)"/>
+            <column name="_user_id" type="INTEGER"/>
+            <column name="status" type="SMALLINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-7">
+        <createTable tableName="quiz_category">
+            <column name="quiz_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="quiz_category_pkey"/>
+            </column>
+            <column name="category_id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="quiz_category_pkey"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-8">
+        <createTable tableName="user">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(180)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roles" type="JSON">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_verified" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NULL::character varying" name="first_name" type="VARCHAR(255)"/>
+            <column defaultValue="NULL::character varying" name="last_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-9">
+        <createTable tableName="reset_password_request">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="reset_password_request_pkey"/>
+            </column>
+            <column name="user_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="selector" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hashed_token" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="requested_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expires_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-10">
+        <createTable tableName="quiz_result">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="quiz_result_pkey"/>
+            </column>
+            <column name="_user_id" type="INTEGER"/>
+            <column name="quiz_id" type="INTEGER"/>
+            <column name="answers_count" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="correct_answers_count" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="score" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="created_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="updated_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-11">
+        <createTable tableName="sessions">
+            <column name="sess_id" type="VARCHAR(128)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="sessions_pkey"/>
+            </column>
+            <column name="sess_data" type="BYTEA">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sess_lifetime" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sess_time" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-12">
+        <createTable tableName="quiz_comment">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="quiz_comment_pkey"/>
+            </column>
+            <column name="quiz_id" type="INTEGER"/>
+            <column name="_user_id" type="INTEGER"/>
+            <column name="text" type="TEXT"/>
+            <column defaultValue="NULL::character varying" name="photo_filename" type="VARCHAR(255)"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="created_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="updated_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column defaultValue="submitted" name="state" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-13">
+        <createTable tableName="messenger_messages">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="messenger_messages_pkey"/>
+            </column>
+            <column name="body" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="headers" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="queue_name" type="VARCHAR(190)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="available_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="delivered_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-14">
+        <createTable tableName="company">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="company_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="site_url" type="VARCHAR(255)"/>
+            <column name="logo" type="VARCHAR(255)"/>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-15">
+        <createIndex indexName="uniq_880e0d76e7927c74" tableName="admin" unique="true">
+            <column name="email"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-16">
+        <createIndex indexName="idx_dadd4a251e27f6bf" tableName="answer">
+            <column name="question_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-17">
+        <createIndex indexName="uniq_64c19c1989d9b62" tableName="category" unique="true">
+            <column name="slug"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-18">
+        <createIndex indexName="idx_b6f7494e853cd175" tableName="question">
+            <column name="quiz_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-19">
+        <createIndex indexName="idx_a412fa92d32632e8" tableName="quiz">
+            <column name="_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-20">
+        <createIndex indexName="idx_d088e084853cd175" tableName="quiz_category">
+            <column name="quiz_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-21">
+        <createIndex indexName="idx_d088e08412469de2" tableName="quiz_category">
+            <column name="category_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-22">
+        <createIndex indexName="uniq_8d93d649e7927c74" tableName="user" unique="true">
+            <column name="email"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-23">
+        <createIndex indexName="idx_7ce748aa76ed395" tableName="reset_password_request">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-24">
+        <createIndex indexName="idx_fe2e314ad32632e8" tableName="quiz_result">
+            <column name="_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-25">
+        <createIndex indexName="idx_fe2e314a853cd175" tableName="quiz_result">
+            <column name="quiz_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-26">
+        <createIndex indexName="sess_lifetime_idx" tableName="sessions">
+            <column name="sess_lifetime"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-27">
+        <createIndex indexName="idx_862effcc853cd175" tableName="quiz_comment">
+            <column name="quiz_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-28">
+        <createIndex indexName="idx_862effccd32632e8" tableName="quiz_comment">
+            <column name="_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-29">
+        <createIndex indexName="idx_75ea56e0fb7336f0" tableName="messenger_messages">
+            <column name="queue_name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-30">
+        <createIndex indexName="idx_75ea56e0e3bd61ce" tableName="messenger_messages">
+            <column name="available_at"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-31">
+        <createIndex indexName="idx_75ea56e016ba31db" tableName="messenger_messages">
+            <column defaultValueComputed="NULL::timestamp without time zone" name="delivered_at"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-32">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="admin_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-33">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="answer_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-34">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="category_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-35">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="question_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-36">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="quiz_comment_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-37">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="quiz_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-38">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="quiz_result_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-39">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="reset_password_request_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-40">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="user_id_seq" startValue="1"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-41">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="reset_password_request" constraintName="fk_7ce748aa76ed395" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-42">
+        <addForeignKeyConstraint baseColumnNames="quiz_id" baseTableName="quiz_comment" constraintName="fk_862effcc853cd175" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="quiz" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-43">
+        <addForeignKeyConstraint baseColumnNames="_user_id" baseTableName="quiz_comment" constraintName="fk_862effccd32632e8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-44">
+        <addForeignKeyConstraint baseColumnNames="_user_id" baseTableName="quiz" constraintName="fk_a412fa92d32632e8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-45">
+        <addForeignKeyConstraint baseColumnNames="quiz_id" baseTableName="question" constraintName="fk_b6f7494e853cd175" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="quiz" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-46">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="quiz_category" constraintName="fk_d088e08412469de2" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="category" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-47">
+        <addForeignKeyConstraint baseColumnNames="quiz_id" baseTableName="quiz_category" constraintName="fk_d088e084853cd175" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="quiz" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-48">
+        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="answer" constraintName="fk_dadd4a251e27f6bf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="question" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-49">
+        <addForeignKeyConstraint baseColumnNames="quiz_id" baseTableName="quiz_result" constraintName="fk_fe2e314a853cd175" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="quiz" validate="true"/>
+    </changeSet>
+    <changeSet author="liquibase (generated)" id="1698844388627-50">
+        <addForeignKeyConstraint baseColumnNames="_user_id" baseTableName="quiz_result" constraintName="fk_fe2e314ad32632e8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+
+    <changeSet id="1.7" author="armen">
+        <tagDatabase tag="create-question" />
+    </changeSet>
+
+    <changeSet id="1.8" author="armen">
+        <createTable tableName="question">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="question_pkey"/>
+            </column>
+            <column name="quiz_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValue="NULL::character varying" name="title" type="VARCHAR(255)"/>
+            <column defaultValue="NULL::character varying" name="summary" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="created_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column defaultValueComputed="NULL::timestamp without time zone" name="updated_at" remarks="(DC2Type:datetime_immutable)" type="TIMESTAMP WITHOUT TIME ZONE"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseColumnNames="quiz_id" baseTableName="question" constraintName="fk_b6f7494e853cd175" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="quiz" validate="true"/>
+
+        <createIndex indexName="idx_quiz_id" tableName="question">
+            <column name="quiz_id" />
+        </createIndex>
+
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="question_id_seq" startValue="1"/>
+
+        <rollback>
+            <dropTable cascadeConstraints="true"
+                       tableName="question"/>
+
+            <sql>
+                DROP SEQUENCE question_id_seq CASCADE
+            </sql>
+<!--            <dropForeignKeyConstraint baseTableName="question"-->
+<!--                                       constraintName="fk_b6f7494e853cd175"/>-->
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

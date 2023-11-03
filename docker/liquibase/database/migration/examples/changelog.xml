@@ -24,6 +24,7 @@
             <column name="logo" type="VARCHAR(255)">
                 <constraints nullable="true" />
             </column>
+
             <column name="created_at" type="TIMESTAMP" defaultValueComputed="CURRENT_TIMESTAMP"/>
             <column name="updated_at" type="TIMESTAMP">
                 <constraints nullable="true" />
@@ -34,5 +35,8 @@
                         tableName="company"/>
         </rollback>
     </changeSet>
+
+    <include file="v-1.0/changelog-v.1.0-cumulative.xml" relativeToChangelogFile="true"/>
+    <include file="v-2.0/changelog-v.2.0-cumulative.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

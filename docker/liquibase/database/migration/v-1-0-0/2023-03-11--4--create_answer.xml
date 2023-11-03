@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+
+    <changeSet id="1.9" author="armen">
+        <tagDatabase tag="create-answer" />
+    </changeSet>
+
+    <changeSet id="2.0" author="armen">
+        <createTable tableName="answer">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="answer_pkey" />
+            </column>
+            <column name="question_id" type="INTEGER" />
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="is_true" type="BOOLEAN">
+                <constraints nullable="false" />
+            </column>
+            <column name="point" type="INTEGER">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createIndex indexName="idx_question_id" tableName="answer">
+            <column name="question_id" />
+        </createIndex>
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="answer_id_seq" startValue="1"/>
+        <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="answer" constraintName="fk_dadd4a251e27f6bf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="question" validate="true"/>
+
+        <rollback>
+            <dropTable cascadeConstraints="true"
+                       tableName="answer"/>
+
+            <sql>
+                DROP SEQUENCE answer_id_seq CASCADE
+            </sql>
+<!--            <dropForeignKeyConstraint baseTableName="answer"-->
+<!--                                       constraintName="fk_dadd4a251e27f6bf"/>-->
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

@@ -41,8 +41,10 @@ services:
     #    command: liquibase --url="jdbc:mariadb://db:3306/test" --changeLogFile=./changelog/changelog.xml --username=root --password=root tag t-1.0
     #    command: liquibase --url="jdbc:mariadb://db:3306/test" --changeLogFile=./changelog/changelog.xml --username=root --password=root rollback t-1.0
 #    command: liquibase --url="jdbc:mariadb://db:3306/test" --changeLogFile=./changelog/changelog.xml --username=root --password=root update
-    command: liquibase --url="jdbc:postgresql://db:5432/quizzes?serverVersion=15&charset=utf8" --changeLogFile=./changelog/changelog.xml --username=app --password=!ChangeMe! update
-    #    command: liquibase --url="jdbc:mariadb://db:3306/test" --username=root --password=root --changeLogFile=mydatabase_changelog.xml generateChangeLog
+    command: liquibase --url="jdbc:postgresql://db:5432/quizzes_liquibase?serverVersion=15&charset=utf8" --changeLogFile=./changelog/master.xml --username=app --password=!ChangeMe! update
+#    command: liquibase --url="jdbc:postgresql://db:5432/quizzes_liquibase?serverVersion=15&charset=utf8" --changeLogFile=./changelog/master.xml --username=app --password=!ChangeMe! rollbackCount 10
+#    command: liquibase --url="jdbc:postgresql://db:5432/quizzes_liquibase?serverVersion=15&charset=utf8" --changeLogFile=./changelog/master.xml --username=app --password=!ChangeMe! rollback create-answer
+#    command: liquibase --url="jdbc:postgresql://db:5432/quizzes?serverVersion=15&charset=utf8" --changeLogFile=./changelog/mydatabase_changelog.xml generateChangeLog --username=app --password=!ChangeMe!
     depends_on:
       - db
     networks:

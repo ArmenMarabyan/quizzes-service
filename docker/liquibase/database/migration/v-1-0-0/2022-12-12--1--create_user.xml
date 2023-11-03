@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd
+      http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.5.xsd">
+
+    <changeSet id="1" author="armen">
+        <tagDatabase tag="create-user" />
+    </changeSet>
+
+    <changeSet id="1.1" author="armen">
+
+        <sqlFile path="changelog/v-1-0-0/sql/create_user.sql" />
+
+        <rollback>
+            drop table users;
+        </rollback>
+    </changeSet>
+
+<!--    <changeSet id="1.1" author="armen">-->
+<!--        <createTable tableName="Person">-->
+<!--            <column autoIncrement="true" name="id" type="BIGINT">-->
+<!--                <constraints nullable="false" primaryKey="true" />-->
+<!--            </column>-->
+<!--            <column name="name" type="VARCHAR(255)">-->
+<!--                <constraints nullable="false" />-->
+<!--            </column>-->
+<!--        </createTable>-->
+<!--        <rollback>-->
+<!--            <dropTable  cascadeConstraints="true"-->
+<!--                        tableName="Person"/>-->
+<!--        </rollback>-->
+<!--    </changeSet>-->
+
+</databaseChangeLog>
